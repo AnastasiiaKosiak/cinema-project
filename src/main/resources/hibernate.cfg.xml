@@ -11,10 +11,12 @@
         <property name="hibernate.connection.username">nastya</property>
         <property name="hibernate.connection.password">123_abcXYZ</property>
         <property name="hibernate.connection.pool_size">1</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <mapping class="mate.academy.cinema.model.Movie"/>
+        <mapping class="mate.academy.cinema.model.CinemaHall"/>
+        <mapping class="mate.academy.cinema.model.MovieSession"/>
     </session-factory>
 </hibernate-configuration>
