@@ -1,6 +1,5 @@
 package mate.academy.cinema.util;
 
-import mate.academy.cinema.exceptions.DataProcessingException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -11,7 +10,7 @@ public class HibernateUtil {
         try {
             return new Configuration().configure().buildSessionFactory();
         } catch (Exception exception) {
-            throw new DataProcessingException("Error creating a Session Factory", exception);
+            throw new RuntimeException("Error creating a Session Factory", exception);
         }
     }
     

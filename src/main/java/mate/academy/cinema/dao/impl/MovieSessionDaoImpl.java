@@ -18,9 +18,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
-        Session session = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<MovieSession> query = criteriaBuilder.createQuery(MovieSession.class);
             Root<MovieSession> root = query.from(MovieSession.class);
@@ -31,10 +29,6 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         } catch (Exception exception) {
             throw new DataProcessingException("Error getting a list of all available sessions",
                     exception);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
