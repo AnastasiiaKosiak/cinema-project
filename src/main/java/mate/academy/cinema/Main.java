@@ -5,9 +5,12 @@ import mate.academy.cinema.lib.Injector;
 import mate.academy.cinema.model.CinemaHall;
 import mate.academy.cinema.model.Movie;
 import mate.academy.cinema.model.MovieSession;
+import mate.academy.cinema.security.AuthenticationService;
+import mate.academy.cinema.security.AuthenticationServiceImpl;
 import mate.academy.cinema.service.CinemaHallService;
 import mate.academy.cinema.service.MovieService;
 import mate.academy.cinema.service.MovieSessionService;
+import mate.academy.cinema.service.UserService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("mate.academy.cinema");
@@ -29,5 +32,9 @@ public class Main {
         movieSessionService.add(movieSession);
         movieSessionService.findAvailableSessions(movie.getId(), LocalDateTime.now().toLocalDate())
                 .forEach(System.out::println);
+        UserService userService = (UserService) injector.getInstance(UserService.class);
+        AuthenticationService authenticationService = new AuthenticationServiceImpl();
+        authenticationService.register("ccc", "123");
+        System.out.println(userService.findByEmail("ccc"));
     }
 }
