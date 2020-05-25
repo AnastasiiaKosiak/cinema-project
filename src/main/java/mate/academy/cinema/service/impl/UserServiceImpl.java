@@ -1,5 +1,6 @@
 package mate.academy.cinema.service.impl;
 
+import java.util.Optional;
 import mate.academy.cinema.dao.UserDao;
 import mate.academy.cinema.lib.Inject;
 import mate.academy.cinema.lib.Service;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return userDao.findByEmail(email);
     }
 }

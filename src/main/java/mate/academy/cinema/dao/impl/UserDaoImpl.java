@@ -1,5 +1,6 @@
 package mate.academy.cinema.dao.impl;
 
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -37,13 +38,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
             query.select(root).where(criteriaBuilder.equal(root.get("email"), email));
-            return session.createQuery(query).uniqueResult();
+            return Optional.ofNullable(session.createQuery(query).uniqueResult());
         } catch (Exception exception) {
             throw new DataProcessingException("Error getting a user with this email:" + email,
                     exception);
