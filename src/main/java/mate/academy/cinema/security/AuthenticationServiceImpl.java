@@ -3,6 +3,7 @@ package mate.academy.cinema.security;
 import mate.academy.cinema.exceptions.AuthenticationException;
 import mate.academy.cinema.lib.Injector;
 import mate.academy.cinema.model.User;
+import mate.academy.cinema.service.ShoppingCartService;
 import mate.academy.cinema.service.UserService;
 import mate.academy.cinema.util.HashUtil;
 
@@ -10,6 +11,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private static final Injector injector = Injector.getInstance("mate.academy.cinema");
     private static final UserService userService =
             (UserService)injector.getInstance(UserService.class);
+    private static final ShoppingCartService shoppingCartService =
+            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -26,7 +29,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setSalt(HashUtil.getSalt());
-        user.setPassword(HashUtil.hashPassword(user.getPassword(), user.getSalt()));
-        return userService.add(user);
+        user.setPassword(HashUtil.hashPassword(password, user.getSalt()));
+        User registeredUser = userService.add(user);
+        shoppingCartService.registerNewShoppingCart(registeredUser);
+        return registeredUser;
     }
 }

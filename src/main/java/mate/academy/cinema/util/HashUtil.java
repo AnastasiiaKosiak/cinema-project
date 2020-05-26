@@ -3,10 +3,9 @@ package mate.academy.cinema.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import org.apache.log4j.Logger;
 
 public class HashUtil {
-    private static final Logger LOGGER = Logger.getLogger(HashUtil.class);
+    private static final String ALGORITHM = "SHA-512";
 
     public static byte[] getSalt() {
         SecureRandom random = new SecureRandom();
@@ -18,7 +17,7 @@ public class HashUtil {
     public static String hashPassword(String password, byte[] salt) {
         StringBuilder hashedPassword = new StringBuilder();
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
             messageDigest.update(salt);
 
             byte[] digest = messageDigest.digest(password.getBytes());
@@ -27,7 +26,7 @@ public class HashUtil {
             }
 
         } catch (NoSuchAlgorithmException exception) {
-            LOGGER.error(exception);
+            throw new RuntimeException(exception.getMessage(), exception);
         }
         return hashedPassword.toString();
     }
