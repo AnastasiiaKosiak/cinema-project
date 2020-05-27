@@ -1,31 +1,31 @@
 package mate.academy.cinema.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "shopping_cart")
-public class ShoppingCart {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
+    @JoinColumn(name = "orders_ticket_id")
     private List<Ticket> tickets;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "shopping_cart_id")
+    private LocalDateTime orderDate;
+    @ManyToOne
+    @JoinColumn(name = "orders_user_id")
     private User user;
 
-    public ShoppingCart() {
+    public Order() {
     }
 
     public Long getId() {
@@ -44,6 +44,14 @@ public class ShoppingCart {
         this.tickets = tickets;
     }
 
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public User getUser() {
         return user;
     }
@@ -54,26 +62,7 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return "ShoppingCart{" + "id=" + id + ", tickets=" + tickets + ", user="
-                + user + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, tickets, user);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        ShoppingCart shoppingCart = (ShoppingCart) obj;
-        return Objects.equals(id, shoppingCart.id)
-                && Objects.equals(tickets, shoppingCart.tickets)
-                && Objects.equals(user, shoppingCart.user);
+        return "Order{" + "id=" + id + ", tickets=" + tickets + ", orderDate=" + orderDate
+                + ", user=" + user + '}';
     }
 }

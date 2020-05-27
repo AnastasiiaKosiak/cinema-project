@@ -68,6 +68,5 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 session.close();
             }
         }
-
     }
 }
