@@ -16,13 +16,12 @@ import mate.academy.cinema.service.ShoppingCartService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private static final Injector injector = Injector.getInstance("mate.academy.cinema");
-    private static final ShoppingCartService shoppingCartService =
-            (ShoppingCartService)injector.getInstance(ShoppingCartService.class);
     @Inject
     private OrderDao orderDao;
     @Inject
     private ShoppingCartDao shoppingCartDao;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
