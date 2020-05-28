@@ -5,7 +5,6 @@ import java.util.List;
 import mate.academy.cinema.dao.OrderDao;
 import mate.academy.cinema.dao.ShoppingCartDao;
 import mate.academy.cinema.lib.Inject;
-import mate.academy.cinema.lib.Injector;
 import mate.academy.cinema.lib.Service;
 import mate.academy.cinema.model.Order;
 import mate.academy.cinema.model.ShoppingCart;
