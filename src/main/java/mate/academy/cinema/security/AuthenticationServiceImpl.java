@@ -1,18 +1,22 @@
 package mate.academy.cinema.security;
 
 import mate.academy.cinema.exceptions.AuthenticationException;
-import mate.academy.cinema.lib.Injector;
 import mate.academy.cinema.model.User;
 import mate.academy.cinema.service.ShoppingCartService;
 import mate.academy.cinema.service.UserService;
 import mate.academy.cinema.util.HashUtil;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private static final Injector injector = Injector.getInstance("mate.academy.cinema");
-    private static final UserService userService =
-            (UserService)injector.getInstance(UserService.class);
-    private static final ShoppingCartService shoppingCartService =
-            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
