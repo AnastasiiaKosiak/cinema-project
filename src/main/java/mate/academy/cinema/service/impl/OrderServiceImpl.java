@@ -4,23 +4,26 @@ import java.time.LocalDateTime;
 import java.util.List;
 import mate.academy.cinema.dao.OrderDao;
 import mate.academy.cinema.dao.ShoppingCartDao;
-import mate.academy.cinema.lib.Inject;
-import mate.academy.cinema.lib.Service;
 import mate.academy.cinema.model.Order;
 import mate.academy.cinema.model.ShoppingCart;
 import mate.academy.cinema.model.Ticket;
 import mate.academy.cinema.model.User;
 import mate.academy.cinema.service.OrderService;
 import mate.academy.cinema.service.ShoppingCartService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Inject
-    private OrderDao orderDao;
-    @Inject
-    private ShoppingCartDao shoppingCartDao;
-    @Inject
-    private ShoppingCartService shoppingCartService;
+    private final OrderDao orderDao;
+    private final ShoppingCartDao shoppingCartDao;
+    private final ShoppingCartService shoppingCartService;
+
+    public OrderServiceImpl(OrderDao orderDao, ShoppingCartDao shoppingCartDao,
+                            ShoppingCartService shoppingCartService) {
+        this.orderDao = orderDao;
+        this.shoppingCartDao = shoppingCartDao;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
