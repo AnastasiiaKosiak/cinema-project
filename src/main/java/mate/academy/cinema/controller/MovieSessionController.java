@@ -7,8 +7,6 @@ import mate.academy.cinema.model.MovieSession;
 import mate.academy.cinema.model.dto.MovieSessionRequestDto;
 import mate.academy.cinema.model.dto.MovieSessionResponseDto;
 import mate.academy.cinema.model.mapper.MovieSessionMapper;
-import mate.academy.cinema.service.CinemaHallService;
-import mate.academy.cinema.service.MovieService;
 import mate.academy.cinema.service.MovieSessionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,21 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/movie_sessions")
+@RequestMapping("/movie-sessions")
 public class MovieSessionController {
     private final MovieSessionService movieSessionService;
     private final MovieSessionMapper movieSessionMapper;
-    private final CinemaHallService cinemaHallService;
-    private final MovieService movieService;
 
     public MovieSessionController(MovieSessionService movieSessionService,
-                                  MovieSessionMapper movieSessionMapper,
-                                  CinemaHallService cinemaHallService,
-                                  MovieService movieService) {
+                                  MovieSessionMapper movieSessionMapper) {
         this.movieSessionService = movieSessionService;
         this.movieSessionMapper = movieSessionMapper;
-        this.cinemaHallService = cinemaHallService;
-        this.movieService = movieService;
     }
 
     @GetMapping("/available")
