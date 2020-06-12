@@ -55,4 +55,18 @@ public class UserDaoImpl implements UserDao {
                     exception);
         }
     }
+
+    @Override
+    public User getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+            query.select(root).where(criteriaBuilder.equal(root.get("id"), id));
+            return session.createQuery(query).uniqueResult();
+        } catch (Exception exception) {
+            throw new DataProcessingException("Error getting a user with this id:" + id,
+                    exception);
+        }
+    }
 }

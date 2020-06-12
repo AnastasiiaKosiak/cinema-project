@@ -1,7 +1,9 @@
 package mate.academy.cinema.dao.impl;
 
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import mate.academy.cinema.dao.CinemaHallDao;
 import mate.academy.cinema.exceptions.DataProcessingException;
 import mate.academy.cinema.model.CinemaHall;
@@ -49,6 +51,20 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception exception) {
             throw new DataProcessingException("Error getting a list of all cinema halls",
+                    exception);
+        }
+    }
+
+    @Override
+    public CinemaHall getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<CinemaHall> query = criteriaBuilder.createQuery(CinemaHall.class);
+            Root<CinemaHall> root = query.from(CinemaHall.class);
+            query.select(root).where(criteriaBuilder.equal(root.get("id"), id));
+            return session.createQuery(query).uniqueResult();
+        } catch (Exception exception) {
+            throw new DataProcessingException("Error getting a cinema hall with such id",
                     exception);
         }
     }
