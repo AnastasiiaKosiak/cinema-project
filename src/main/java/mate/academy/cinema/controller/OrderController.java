@@ -8,10 +8,11 @@ import mate.academy.cinema.model.mapper.OrderMapper;
 import mate.academy.cinema.service.OrderService;
 import mate.academy.cinema.service.ShoppingCartService;
 import mate.academy.cinema.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,14 +34,18 @@ public class OrderController {
     }
 
     @PostMapping
-    public void completeOrder(@RequestParam Long id) {
-        User user = userService.getById(id);
+    public void completeOrder(Authentication authentication) {
+        User user = userService
+                .findByEmail(((UserDetails)authentication.getPrincipal())
+                        .getUsername()).get();
         orderService.completeOrder(shoppingCartService.getByUser(user).getTickets(), user);
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrdersHistory(@RequestParam Long id) {
-        return orderService.getOrderHistory(userService.getById(id))
+    public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
+        User user = userService
+                .findByEmail(((UserDetails)authentication.getPrincipal()).getUsername()).get();
+        return orderService.getOrderHistory(user)
                 .stream()
                 .map(orderMapper::convertToDto)
                 .collect(Collectors.toList());

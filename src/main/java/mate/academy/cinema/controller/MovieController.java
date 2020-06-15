@@ -2,6 +2,7 @@ package mate.academy.cinema.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import mate.academy.cinema.model.Movie;
 import mate.academy.cinema.model.dto.MovieRequestDto;
 import mate.academy.cinema.model.dto.MovieResponseDto;
@@ -9,6 +10,7 @@ import mate.academy.cinema.model.mapper.MovieMapper;
 import mate.academy.cinema.service.MovieService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +34,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie add(MovieRequestDto requestDto) {
+    public Movie add(@RequestBody @Valid MovieRequestDto requestDto) {
         return movieService.add(movieMapper.convertToMovie(requestDto));
     }
 }
