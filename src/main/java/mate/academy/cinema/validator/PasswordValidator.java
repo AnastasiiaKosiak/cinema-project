@@ -7,10 +7,6 @@ import mate.academy.cinema.model.dto.UserRequestDto;
 
 public class PasswordValidator implements ConstraintValidator<PasswordValidation, UserRequestDto> {
     @Override
-    public void initialize(PasswordValidation constraintAnnotation) {
-    }
-
-    @Override
     public boolean isValid(UserRequestDto requestDto,
                            ConstraintValidatorContext constraintValidatorContext) {
         return Objects.equals(requestDto.getPassword(), requestDto.getRepeatPassword());

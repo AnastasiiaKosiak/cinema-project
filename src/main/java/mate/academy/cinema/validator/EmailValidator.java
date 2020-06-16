@@ -7,11 +7,7 @@ public class EmailValidator implements ConstraintValidator<EmailValidation, Stri
     public static final String REGEX = "^.+@.*";
 
     @Override
-    public void initialize(EmailValidation constraintAnnotation) {
-    }
-
-    @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.matches(REGEX);
+    public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
+        return email.matches(REGEX);
     }
 }
