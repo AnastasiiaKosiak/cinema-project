@@ -18,11 +18,10 @@ public class InjectDataController {
     }
 
     @PostConstruct
-    public void injectDatabase() {
+    public void injectData() {
         Role user = Role.of("USER");
         roleService.add(user);
-        Role admin = Role.of("ADMIN");
-        roleService.add(admin);
+        Role admin = roleService.add(Role.of("ADMIN"));
         authService.register("mymail@gmail.com", "123", Set.of(admin));
     }
 }
