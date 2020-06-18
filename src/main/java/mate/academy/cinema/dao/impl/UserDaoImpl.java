@@ -3,6 +3,7 @@ package mate.academy.cinema.dao.impl;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import mate.academy.cinema.dao.UserDao;
 import mate.academy.cinema.exceptions.DataProcessingException;
@@ -48,6 +49,7 @@ public class UserDaoImpl implements UserDao {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
+            root.fetch("roles", JoinType.LEFT);
             query.select(root).where(criteriaBuilder.equal(root.get("email"), email));
             return Optional.ofNullable(session.createQuery(query).uniqueResult());
         } catch (Exception exception) {
@@ -62,6 +64,7 @@ public class UserDaoImpl implements UserDao {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
+            root.fetch("roles", JoinType.LEFT);
             query.select(root).where(criteriaBuilder.equal(root.get("id"), id));
             return session.createQuery(query).uniqueResult();
         } catch (Exception exception) {
