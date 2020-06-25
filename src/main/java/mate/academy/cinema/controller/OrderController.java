@@ -2,9 +2,9 @@ package mate.academy.cinema.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import mate.academy.cinema.mapper.OrderMapper;
 import mate.academy.cinema.model.User;
 import mate.academy.cinema.model.dto.OrderResponseDto;
-import mate.academy.cinema.model.mapper.OrderMapper;
 import mate.academy.cinema.service.OrderService;
 import mate.academy.cinema.service.ShoppingCartService;
 import mate.academy.cinema.service.UserService;
