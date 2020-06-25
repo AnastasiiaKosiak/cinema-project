@@ -1,8 +1,8 @@
 package mate.academy.cinema.controller;
 
+import mate.academy.cinema.mapper.ShoppingCartMapper;
 import mate.academy.cinema.model.User;
 import mate.academy.cinema.model.dto.ShoppingCartResponseDto;
-import mate.academy.cinema.model.mapper.ShoppingCartMapper;
 import mate.academy.cinema.service.MovieSessionService;
 import mate.academy.cinema.service.ShoppingCartService;
 import mate.academy.cinema.service.UserService;
