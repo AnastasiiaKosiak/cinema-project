@@ -1,4 +1,4 @@
-package mate.academy.cinema.model.mapper;
+package mate.academy.cinema.mapper;
 
 import java.util.stream.Collectors;
 import mate.academy.cinema.model.ShoppingCart;

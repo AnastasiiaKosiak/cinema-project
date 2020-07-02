@@ -3,7 +3,6 @@ package mate.academy.cinema.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 import mate.academy.cinema.dao.OrderDao;
-import mate.academy.cinema.dao.ShoppingCartDao;
 import mate.academy.cinema.model.Order;
 import mate.academy.cinema.model.ShoppingCart;
 import mate.academy.cinema.model.Ticket;
@@ -15,13 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
-    private final ShoppingCartDao shoppingCartDao;
     private final ShoppingCartService shoppingCartService;
 
-    public OrderServiceImpl(OrderDao orderDao, ShoppingCartDao shoppingCartDao,
-                            ShoppingCartService shoppingCartService) {
+    public OrderServiceImpl(OrderDao orderDao, ShoppingCartService shoppingCartService) {
         this.orderDao = orderDao;
-        this.shoppingCartDao = shoppingCartDao;
         this.shoppingCartService = shoppingCartService;
     }
 
@@ -32,10 +28,9 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setOrderDate(LocalDateTime.now());
         newOrder.setUser(user);
         newOrder.setTickets(newTicketsList);
-        ShoppingCart shoppingCart = shoppingCartDao.getByUser(user);
+        ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
         shoppingCartService.clear(shoppingCart);
         return orderDao.add(newOrder);
-
     }
 
     @Override

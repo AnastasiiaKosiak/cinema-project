@@ -1,7 +1,6 @@
 package mate.academy.cinema.security;
 
 import java.util.Set;
-import mate.academy.cinema.exceptions.AuthenticationException;
 import mate.academy.cinema.model.Role;
 import mate.academy.cinema.model.User;
 import mate.academy.cinema.service.ShoppingCartService;
@@ -20,16 +19,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
-    }
-
-    @Override
-    public User login(String email, String password) throws AuthenticationException {
-        User user = userService.findByEmail(email).get();
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return user;
-        } else {
-            throw new AuthenticationException("Incorrect email or password");
-        }
     }
 
     @Override

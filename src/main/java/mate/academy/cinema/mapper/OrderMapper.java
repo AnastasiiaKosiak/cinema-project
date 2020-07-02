@@ -1,4 +1,4 @@
-package mate.academy.cinema.model.mapper;
+package mate.academy.cinema.mapper;
 
 import mate.academy.cinema.model.Order;
 import mate.academy.cinema.model.dto.OrderResponseDto;

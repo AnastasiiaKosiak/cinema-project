@@ -1,7 +1,7 @@
 package mate.academy.cinema.controller;
 
+import mate.academy.cinema.mapper.UserMapper;
 import mate.academy.cinema.model.dto.UserResponseDto;
-import mate.academy.cinema.model.mapper.UserMapper;
 import mate.academy.cinema.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
